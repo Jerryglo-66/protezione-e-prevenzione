@@ -1,0 +1,6 @@
+{
+  "name": "Esercizi Schiena",
+  "description": "Guida interattiva e tracker quotidiano per il benessere della schiena, la postura e il sollievo dal dolore.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

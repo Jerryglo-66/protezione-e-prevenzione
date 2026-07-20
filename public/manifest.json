@@ -1,0 +1,17 @@
+{
+  "name": "Esercizi Schiena - Postura e Prevenzione",
+  "short_name": "Esercizi Schiena",
+  "description": "Guida interattiva e tracker quotidiano per il benessere della schiena, la postura e il sollievo dal dolore.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafbfd",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
