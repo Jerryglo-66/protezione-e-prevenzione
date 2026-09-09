@@ -37,7 +37,7 @@ class _PreventionRoutineScreenState extends State<PreventionRoutineScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Routine Prevenzione Schiena'),
+        title: const Text('Prevenzione Mal di Schiena'),
         backgroundColor: Colors.teal,
       ),
       body: Padding(

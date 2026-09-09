@@ -15,7 +15,7 @@ void main() {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('Routine Prevenzione Schiena'), findsOneWidget);
+    expect(find.text('Prevenzione Mal di Schiena'), findsOneWidget);
     expect(find.text('1. Decompressione: Child\'s Pose'), findsOneWidget);
 
     await tester.tap(find.text('Prossimo'));
