@@ -185,6 +185,144 @@ export const EXERCISES_IT: Exercise[] = [
       'Tenere le gambe completamente tese se si avverte tensione eccessiva dietro le ginocchia.'
     ],
     visualType: 'chest-opener'
+  },
+  {
+    id: 'yoga-downward-dog',
+    title: 'Yoga: Cane a Testa in Giù',
+    category: 'allungamento',
+    difficulty: 'Principiante',
+    targetRegion: 'tutta',
+    durationSeconds: 45,
+    description: 'Posizione yoga che allunga tutta la catena posteriore e aiuta a ridurre la rigidità di schiena, spalle e gambe.',
+    steps: [
+      'Parti in quadrupedia con mani sotto le spalle e ginocchia sotto i fianchi.',
+      'Espira, spingi il pavimento e solleva le ginocchia portando il bacino verso l’alto.',
+      'Allunga la schiena, mantenendo le ginocchia leggermente piegate se necessario, e respira lentamente.'
+    ],
+    tips: [
+      'Dai priorità alla lunghezza della schiena, non a spingere i talloni a terra.',
+      'Rilassa il collo lasciando la testa tra le braccia.'
+    ],
+    mistakes: [
+      'Arrotondare la zona lombare per cercare di stendere le gambe.',
+      'Scaricare tutto il peso sui polsi senza spingere attivamente il pavimento.'
+    ],
+    visualType: 'childs-pose'
+  },
+  {
+    id: 'yoga-low-lunge',
+    title: 'Yoga: Affondo Basso',
+    category: 'mobilita',
+    difficulty: 'Principiante',
+    targetRegion: 'lombare',
+    durationSeconds: 45,
+    description: 'Affondo dolce per mobilizzare i flessori dell’anca, spesso rigidi dopo molte ore seduti.',
+    steps: [
+      'Dalla quadrupedia porta il piede destro tra le mani e appoggia il ginocchio sinistro a terra.',
+      'Mantieni il busto alto e accompagna il bacino lentamente in avanti senza inarcare la schiena.',
+      'Respira per alcuni cicli, poi torna al centro e ripeti dall’altro lato.'
+    ],
+    tips: [
+      'Usa un cuscino sotto il ginocchio posteriore se senti pressione.',
+      'Mantieni il bacino rivolto in avanti e il piede anteriore ben appoggiato.'
+    ],
+    mistakes: [
+      'Lasciare che il ginocchio anteriore collassi verso l’interno.',
+      'Spingere il bacino oltre il punto di allungamento confortevole.'
+    ],
+    visualType: 'bridge'
+  },
+  {
+    id: 'yoga-seated-twist',
+    title: 'Yoga: Torsione da Seduti',
+    category: 'mobilita',
+    difficulty: 'Principiante',
+    targetRegion: 'dorsale',
+    durationSeconds: 60,
+    description: 'Torsione controllata per migliorare la mobilità dorsale e sciogliere le tensioni accumulate.',
+    steps: [
+      'Siediti con le gambe distese o leggermente piegate e la schiena allungata.',
+      'Porta la mano destra dietro di te e la sinistra sul ginocchio destro.',
+      'Inspira per crescere verso l’alto, espira per ruotare dolcemente, poi cambia lato.'
+    ],
+    tips: [
+      'Mantieni il peso distribuito sui due ischi durante tutta la torsione.',
+      'Ruota prima dal torace e mantieni il collo rilassato.'
+    ],
+    mistakes: [
+      'Forzare la rotazione usando il braccio come leva.',
+      'Collassare in avanti invece di mantenere la colonna lunga.'
+    ],
+    visualType: 'spinal-twist'
+  },
+  {
+    id: 'pilates-pelvic-curl',
+    title: 'Pilates: Ponte articolato',
+    category: 'rinforzo',
+    difficulty: 'Principiante',
+    targetRegion: 'lombare',
+    durationSeconds: 45,
+    description: 'Movimento controllato per attivare glutei e addominali, articolando la colonna con consapevolezza.',
+    steps: [
+      'Sdraiati sulla schiena con ginocchia piegate, piedi paralleli e braccia lungo i fianchi.',
+      'Espira, attiva l’addome e solleva il bacino srotolando la colonna dal pavimento.',
+      'Inspira in alto, poi espira e torna lentamente a terra appoggiando una vertebra alla volta.'
+    ],
+    tips: [
+      'Mantieni le ginocchia in linea con i piedi e il peso distribuito sui talloni.',
+      'Sali solo fin dove riesci a mantenere le costole rilassate e la schiena confortevole.'
+    ],
+    mistakes: [
+      'Spingere il bacino troppo in alto inarcando la zona lombare.',
+      'Lasciare che le ginocchia si aprano o cadano verso l’interno.'
+    ],
+    visualType: 'bridge'
+  },
+  {
+    id: 'pilates-single-leg-stretch',
+    title: 'Pilates: Stretch a una gamba',
+    category: 'rinforzo',
+    difficulty: 'Intermedio',
+    targetRegion: 'tutta',
+    durationSeconds: 45,
+    description: 'Esercizio di controllo del centro per stabilizzare il bacino e coordinare respiro e movimento.',
+    steps: [
+      'Sdraiati sulla schiena con le gambe sollevate e le ginocchia piegate a novanta gradi.',
+      'Espira, porta una gamba verso il petto e allunga l’altra in avanti senza inarcare la schiena.',
+      'Alterna le gambe con un ritmo lento, mantenendo l’addome attivo e il bacino stabile.'
+    ],
+    tips: [
+      'Riduci l’ampiezza del movimento se la zona lombare tende a sollevarsi.',
+      'Mantieni il collo rilassato e lo sguardo verso l’alto.'
+    ],
+    mistakes: [
+      'Inarcare la zona lombare quando si allunga la gamba.',
+      'Eseguire il cambio di gambe con slancio invece che con controllo.'
+    ],
+    visualType: 'plank'
+  },
+  {
+    id: 'pilates-spine-stretch',
+    title: 'Pilates: Allungamento della colonna',
+    category: 'mobilita',
+    difficulty: 'Principiante',
+    targetRegion: 'dorsale',
+    durationSeconds: 45,
+    description: 'Allungamento da seduti per migliorare la mobilità della colonna e rilassare collo e spalle.',
+    steps: [
+      'Siediti con le gambe distese, i piedi alla larghezza del tappetino e le braccia davanti alle spalle.',
+      'Inspira crescendo verso l’alto, poi espira e arrotonda la colonna portando il mento verso il petto.',
+      'Ritorna lentamente alla posizione seduta impilando la colonna, senza collassare sulle anche.'
+    ],
+    tips: [
+      'Piega leggermente le ginocchia se senti troppa tensione dietro le gambe.',
+      'Immagina di allontanare le dita delle mani dai talloni.'
+    ],
+    mistakes: [
+      'Forzare la discesa usando le spalle o il collo.',
+      'Sollevare i talloni o perdere il contatto degli ischi con il pavimento.'
+    ],
+    visualType: 'childs-pose'
   }
 ];
 
@@ -373,6 +511,75 @@ export const EXERCISES_EN: Exercise[] = [
       'Keeping legs fully locked if you feel tight hamstrings.'
     ],
     visualType: 'chest-opener'
+  },
+  {
+    id: 'yoga-downward-dog',
+    title: 'Yoga: Downward-Facing Dog',
+    category: 'allungamento',
+    difficulty: 'Beginner',
+    targetRegion: 'tutta',
+    durationSeconds: 45,
+    description: 'A yoga pose that lengthens the entire posterior chain and eases stiffness in the back, shoulders, and legs.',
+    steps: [
+      'Start on all fours with hands under shoulders and knees under hips.',
+      'Exhale, press the floor away, and lift your knees as you send your hips upward.',
+      'Lengthen your spine, keeping knees softly bent if needed, and breathe slowly.'
+    ],
+    tips: [
+      'Prioritize a long spine rather than forcing heels toward the floor.',
+      'Relax your neck and let your head stay between your arms.'
+    ],
+    mistakes: [
+      'Rounding the lower back to straighten the legs.',
+      'Putting all your weight into the wrists without actively pushing the floor away.'
+    ],
+    visualType: 'childs-pose'
+  },
+  {
+    id: 'yoga-low-lunge',
+    title: 'Yoga: Low Lunge',
+    category: 'mobilita',
+    difficulty: 'Beginner',
+    targetRegion: 'lombare',
+    durationSeconds: 45,
+    description: 'A gentle lunge to mobilize the hip flexors, which often become tight after long periods of sitting.',
+    steps: [
+      'From all fours, step your right foot between your hands and lower your left knee.',
+      'Keep your torso tall and gently move your hips forward without arching your back.',
+      'Breathe for several cycles, return to center, and repeat on the other side.'
+    ],
+    tips: [
+      'Use a cushion under the back knee if you feel pressure.',
+      'Keep your pelvis facing forward and your front foot grounded.'
+    ],
+    mistakes: [
+      'Letting the front knee collapse inward.',
+      'Pushing the hips beyond a comfortable stretch.'
+    ],
+    visualType: 'bridge'
+  },
+  {
+    id: 'yoga-seated-twist',
+    title: 'Yoga: Seated Twist',
+    category: 'mobilita',
+    difficulty: 'Beginner',
+    targetRegion: 'dorsale',
+    durationSeconds: 60,
+    description: 'A controlled twist to improve thoracic mobility and release accumulated tension.',
+    steps: [
+      'Sit with legs extended or softly bent and keep your spine tall.',
+      'Place your right hand behind you and your left hand on your right knee.',
+      'Inhale to lengthen upward, exhale to gently rotate, then switch sides.'
+    ],
+    tips: [
+      'Keep your weight balanced on both sitting bones throughout the twist.',
+      'Rotate from the chest first and keep your neck relaxed.'
+    ],
+    mistakes: [
+      'Forcing rotation by pulling with the arm.',
+      'Collapsing forward instead of keeping the spine long.'
+    ],
+    visualType: 'spinal-twist'
   }
 ];
 
@@ -403,6 +610,22 @@ export const ROUTINES_IT: Routine[] = [
     emoji: '🛡️',
     exerciseIds: ['bird-dog', 'bridge', 'plank'],
     estimatedMinutes: 3
+  },
+  {
+    id: 'yoga-back',
+    name: 'Yoga per la schiena',
+    description: 'Una sequenza dolce di mobilità e allungamento yoga per ritrovare spazio e leggerezza nella schiena.',
+    emoji: '🧘',
+    exerciseIds: ['yoga-downward-dog', 'yoga-low-lunge', 'yoga-seated-twist'],
+    estimatedMinutes: 3
+  },
+  {
+    id: 'pilates-back',
+    name: 'Pilates per la schiena',
+    description: 'Una sequenza controllata per rinforzare il centro, stabilizzare il bacino e migliorare la mobilità.',
+    emoji: '🧘‍♀️',
+    exerciseIds: ['pilates-pelvic-curl', 'pilates-single-leg-stretch', 'pilates-spine-stretch'],
+    estimatedMinutes: 3
   }
 ];
 
@@ -429,6 +652,22 @@ export const ROUTINES_EN: Routine[] = [
     description: 'Activates and strengthens deep core and back muscles to prevent future discomfort.',
     emoji: '🛡️',
     exerciseIds: ['bird-dog', 'bridge', 'plank'],
+    estimatedMinutes: 3
+  },
+  {
+    id: 'yoga-back',
+    name: 'Yoga for Back Care',
+    description: 'A gentle yoga sequence combining mobility and stretching to bring ease and space to your back.',
+    emoji: '🧘',
+    exerciseIds: ['yoga-downward-dog', 'yoga-low-lunge', 'yoga-seated-twist'],
+    estimatedMinutes: 3
+  },
+  {
+    id: 'pilates-back',
+    name: 'Pilates for Back Care',
+    description: 'A controlled sequence to strengthen the core, stabilize the pelvis, and improve mobility.',
+    emoji: '🧘‍♀️',
+    exerciseIds: ['pilates-pelvic-curl', 'pilates-single-leg-stretch', 'pilates-spine-stretch'],
     estimatedMinutes: 3
   }
 ];

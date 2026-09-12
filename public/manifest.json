@@ -1,7 +1,7 @@
 {
-  "name": "Esercizi Schiena - Postura e Prevenzione",
-  "short_name": "Esercizi Schiena",
-  "description": "Guida interattiva e tracker quotidiano per il benessere della schiena, la postura e il sollievo dal dolore.",
+  "name": "Protezione e Prevenzione",
+  "short_name": "Protezione",
+  "description": "App per la salute della schiena, prevenzione, esercizi e monitoraggio quotidiano della postura.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fafbfd",
@@ -9,9 +9,10 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon.jpg",
+      "src": "/spine-icon.svg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
