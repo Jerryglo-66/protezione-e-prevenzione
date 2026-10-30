@@ -122,6 +122,14 @@ export default function App() {
     exerciseIds: string[];
     advice: string;
   } | null>(null);
+  const [aiPrompt, setAiPrompt] = useState(
+    language === 'it'
+      ? 'Suggeriscimi una mini routine di 10 minuti per la schiena e la postura.'
+      : 'Suggest me a 10-minute mini routine for my back and posture.'
+  );
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResponse, setAiResponse] = useState('');
+  const [aiError, setAiError] = useState('');
 
   // Synchronize completed exercises to localStorage
   useEffect(() => {
@@ -223,6 +231,42 @@ export default function App() {
     setAssessmentResult(null);
   };
 
+  const handleAskAI = async () => {
+    if (!aiPrompt.trim()) {
+      setAiError(language === 'it' ? 'Scrivi una richiesta prima di chiedere all’AI.' : 'Write a prompt before asking the AI.');
+      return;
+    }
+
+    setAiLoading(true);
+    setAiError('');
+    setAiResponse('');
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: `${aiPrompt}\n\nRispondi in ${language === 'it' ? 'italiano' : 'english'} e mantieni un tono utile, pratico e motivante per una persona che vuole prevenire il dolore alla schiena.`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || 'Errore del server AI');
+      }
+
+      setAiResponse(data.text || '');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Errore sconosciuto';
+      setAiError(message);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   // Filter exercises based on: region filter, routine filter, and search query
   const filteredExercises = EXERCISES.filter((ex) => {
     // 1. Filter by Region
@@ -263,6 +307,18 @@ export default function App() {
     };
     return new Date().toLocaleDateString(language === 'it' ? 'it-IT' : 'en-US', options);
   };
+
+  const OFFICE_PREVENTION_TIPS = language === 'it'
+    ? [
+        'Muoviti 2-3 minuti ogni 50 minuti: alza in piedi, cammina e apri petto.',
+        'Tieni schermo alla linea degli occhi e gomiti a 90° con i piedi poggiati.',
+        'Fai 1-2 respirazioni profonde e 1 esercizio rapido ogni ora: cat-camel, chest opener o cobra.'
+      ]
+    : [
+        'Move for 2-3 minutes every 50 minutes: stand up, walk, and open the chest.',
+        'Keep the screen at eye level and elbows at 90° with feet firmly on the floor.',
+        'Take 1-2 deep breaths and 1 quick exercise each hour: cat-camel, chest opener, or cobra.'
+      ];
 
   return (
     <div className="min-h-screen bg-[#fafbfd] pb-16 antialiased selection:bg-indigo-100 selection:text-indigo-900">
@@ -350,12 +406,12 @@ export default function App() {
               {language === 'it' ? 'Benvenuto nel tuo Spazio Benessere' : 'Welcome to Your Wellness Space'}
             </span>
             <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">
-              {language === 'it' ? 'Prenditi cura del tuo pilastro fondamentale.' : 'Take care of your fundamental pillar.'}
+              {language === 'it' ? 'La tua schiena merita una routine semplice e costante.' : 'Your back deserves a simple, consistent routine.'}
             </h2>
             <p className="text-indigo-100 text-sm md:text-base leading-relaxed">
               {language === 'it'
-                ? "Pochi minuti di movimenti controllati ogni giorno possono disattivare le tensioni muscolari, stimolare l'idratazione dei dischi e prevenire blocchi posturali dolorosi."
-                : 'A few minutes of controlled movements every day can release muscle tension, stimulate disc hydration, and prevent painful posture blocks.'}
+                ? "Ogni giorno puoi ridurre rigidità, migliorare la postura e costruire una base più forte per il tuo benessere quotidiano."
+                : 'Every day you can reduce stiffness, improve posture, and build a stronger foundation for your everyday wellbeing.'}
             </p>
           </div>
 
@@ -374,6 +430,38 @@ export default function App() {
             </a>
           </div>
         </div>
+
+        <section className="bg-gradient-to-r from-emerald-50 via-white to-cyan-50 border border-emerald-100 rounded-3xl p-5 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-700">
+                {language === 'it' ? 'Prevenzione sedentarietà in ufficio' : 'Office sedentary prevention'}
+              </p>
+              <h3 className="font-display text-xl font-bold text-slate-800 mt-1">
+                {language === 'it' ? 'Micro-pause per una schiena più sana' : 'Micro-breaks for a healthier back'}
+              </h3>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handleSelectRoutine('smart-working')}
+              className="inline-flex items-center justify-center rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 transition-colors"
+            >
+              {language === 'it' ? 'Attiva routine ufficio' : 'Activate office routine'}
+            </button>
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            {OFFICE_PREVENTION_TIPS.map((tip, index) => (
+              <div key={index} className="rounded-2xl border border-emerald-100 bg-white/80 p-3 text-sm text-slate-700 leading-relaxed">
+                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold mb-2">
+                  {index + 1}
+                </span>
+                <p>{tip}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* TWO COLUMN GRID LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -407,7 +495,40 @@ export default function App() {
               language={language}
             />
 
-            {/* 3. CATALOGUE AND SEARCH */}
+            {/* 3. VISUAL EXERCISE GUIDE */}
+            <section className="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm sm:p-5">
+              <div className="mb-4">
+                <h3 className="font-display text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-amber-500" />
+                  {language === 'it' ? 'Guida visiva per la schiena' : 'Visual back exercise guide'}
+                </h3>
+                <p className="mt-1 text-xs text-slate-400">
+                  {language === 'it'
+                    ? 'Una panoramica illustrata di alcuni movimenti utili per mobilità e sollievo.'
+                    : 'An illustrated overview of movements for mobility and back relief.'}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <img
+                  src="/back-exercise-guide.jpg"
+                  alt={language === 'it'
+                    ? 'Illustrazione di esercizi per alleviare il mal di schiena'
+                    : 'Illustration of exercises to relieve back pain'}
+                  className="h-full w-full rounded-2xl border border-slate-100 object-cover"
+                  loading="lazy"
+                />
+                <img
+                  src="/back-exercise-guide-2.jpg"
+                  alt={language === 'it'
+                    ? 'Illustrazione di esercizi da seduti per schiena e colonna vertebrale'
+                    : 'Illustration of seated back and spine exercises'}
+                  className="h-full w-full rounded-2xl border border-slate-100 object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </section>
+
+            {/* 4. CATALOGUE AND SEARCH */}
             <div id="exercises-catalog" className="space-y-5 pt-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -507,6 +628,47 @@ export default function App() {
               completedExercisesCount={completedExercises.length}
               language={language}
             />
+
+            {/* AI COACH */}
+            <div className="bg-gradient-to-br from-indigo-50 via-white to-cyan-50 rounded-3xl p-5 border border-indigo-100 shadow-sm">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <h3 className="font-display text-lg font-bold text-slate-800 flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-indigo-500" />
+                  {language === 'it' ? 'AI Coach' : 'AI Coach'}
+                </h3>
+              </div>
+
+              <textarea
+                value={aiPrompt}
+                onChange={(event) => setAiPrompt(event.target.value)}
+                rows={4}
+                className="w-full bg-white border border-slate-200 rounded-2xl px-3 py-2.5 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none"
+                placeholder={language === 'it' ? 'Chiedi un consiglio per la schiena...' : 'Ask for back-care advice...'}
+              />
+
+              <button
+                type="button"
+                onClick={handleAskAI}
+                disabled={aiLoading}
+                className="mt-3 w-full rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold text-sm py-2.5 transition-colors"
+              >
+                {aiLoading
+                  ? language === 'it' ? 'Sto pensando...' : 'Thinking...'
+                  : language === 'it' ? 'Chiedi all’AI' : 'Ask AI'}
+              </button>
+
+              {aiError && (
+                <p className="mt-3 text-xs text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                  {aiError}
+                </p>
+              )}
+
+              {aiResponse && (
+                <div className="mt-3 bg-white border border-slate-200 rounded-2xl p-3 text-sm text-slate-700 leading-relaxed">
+                  {aiResponse}
+                </div>
+              )}
+            </div>
 
             {/* 2. INTERACTIVE POSTURE DIAGNOSTICS CARD */}
             <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm space-y-5">

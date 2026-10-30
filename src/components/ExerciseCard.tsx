@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, Pause, RotateCcw, Check, ChevronDown, ChevronUp, AlertCircle, HelpCircle, Flame, Clock } from 'lucide-react';
+import { Play, Pause, RotateCcw, Check, ChevronDown, ChevronUp, AlertCircle, HelpCircle, Flame, Clock, Volume2, VolumeX } from 'lucide-react';
 import { Exercise } from '../types';
 
 interface ExerciseCardProps {
@@ -45,9 +45,12 @@ export default function ExerciseCard({ exercise, onComplete, isCompletedToday, l
   const [timeLeft, setTimeLeft] = useState(exercise.durationSeconds);
   const [breathPhase, setBreathPhase] = useState<'inspira' | 'espira' | 'trattieni'>('inspira');
   const [breathTimer, setBreathTimer] = useState(4); // 4 seconds inhale, 4 exhale, etc.
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceAutoPlay, setVoiceAutoPlay] = useState(true);
   
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const breathIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const speechUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   // Synchronize timer reset when exercise changes or collapses
   useEffect(() => {
@@ -117,6 +120,75 @@ export default function ExerciseCard({ exercise, onComplete, isCompletedToday, l
     stopTimer();
     setTimeLeft(exercise.durationSeconds);
   };
+
+  const handleSpeakExercise = () => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      return;
+    }
+
+    const synth = window.speechSynthesis;
+    const stepsText = exercise.steps.join('. ');
+    const shortTips = exercise.tips.join('. ');
+    const announcement = language === 'it'
+      ? `Esercizio ${exercise.title}. ${stepsText}. ${shortTips}`
+      : `Exercise ${exercise.title}. ${stepsText}. ${shortTips}`;
+
+    if (isSpeaking) {
+      synth.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    synth.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(announcement);
+    utterance.lang = language === 'it' ? 'it-IT' : 'en-US';
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    speechUtteranceRef.current = utterance;
+    synth.speak(utterance);
+  };
+
+  useEffect(() => {
+    if (!isExpanded || !voiceAutoPlay || typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      return;
+    }
+
+    const synth = window.speechSynthesis;
+    const stepsText = exercise.steps.join('. ');
+    const shortTips = exercise.tips.join('. ');
+    const announcement = language === 'it'
+      ? `Esercizio ${exercise.title}. ${stepsText}. ${shortTips}`
+      : `Exercise ${exercise.title}. ${stepsText}. ${shortTips}`;
+
+    synth.cancel();
+    const utterance = new SpeechSynthesisUtterance(announcement);
+    utterance.lang = language === 'it' ? 'it-IT' : 'en-US';
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    speechUtteranceRef.current = utterance;
+    synth.speak(utterance);
+
+    return () => {
+      synth.cancel();
+      setIsSpeaking(false);
+    };
+  }, [isExpanded, voiceAutoPlay, exercise, language]);
+
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   // Inline representational animated SVG for exercises
   const renderVisualAnimation = (type: string) => {
@@ -446,6 +518,13 @@ export default function ExerciseCard({ exercise, onComplete, isCompletedToday, l
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-center gap-4 flex-1 min-w-0">
+          <img
+            src={`/exercise-gifs/${exercise.visualType}.gif`}
+            alt=""
+            aria-hidden="true"
+            className="w-16 h-12 rounded-xl border border-slate-100 bg-slate-50 object-cover flex-shrink-0"
+            loading="lazy"
+          />
           <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold flex-shrink-0 ${
             exercise.category === 'allungamento' ? 'bg-indigo-50 text-indigo-600' :
             exercise.category === 'rinforzo' ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'
@@ -523,19 +602,57 @@ export default function ExerciseCard({ exercise, onComplete, isCompletedToday, l
                 </div>
 
                 {/* Micro animation illustration */}
-                <div className="md:col-span-4 w-full">
+                <div className="md:col-span-4 w-full min-w-0 overflow-hidden isolate">
                   <div className="text-center text-[10px] text-slate-400 font-medium mb-1.5 uppercase tracking-wider">
                     {language === 'it' ? 'Dimostrazione Movimento' : 'Movement Demonstration'}
                   </div>
-                  {renderVisualAnimation(exercise.visualType)}
+                  <div className="relative isolate w-full h-24 min-h-24 overflow-hidden rounded-xl">
+                    <img
+                      src={`/exercise-gifs/${exercise.visualType}.gif`}
+                      alt={language === 'it' ? `Animazione ${exercise.title}` : `${exercise.title} animation`}
+                      className="block h-24 w-full rounded-xl border border-slate-100 bg-slate-50 object-cover"
+                      loading="lazy"
+                      onError={(event) => {
+                        event.currentTarget.style.display = 'none';
+                        const fallback = event.currentTarget.nextElementSibling;
+                        if (fallback instanceof HTMLElement) fallback.style.display = 'block';
+                      }}
+                    />
+                    <div className="hidden h-24 w-full">
+                      {renderVisualAnimation(exercise.visualType)}
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Steps */}
               <div>
-                <h5 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2.5 flex items-center gap-1">
-                  <span>📌</span> {language === 'it' ? "Come eseguire l'esercizio" : "How to perform the exercise"}
-                </h5>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h5 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                    <span>📌</span> {language === 'it' ? "Come eseguire l'esercizio" : "How to perform the exercise"}
+                  </h5>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setVoiceAutoPlay((value) => !value)}
+                      className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-2 py-1 text-[9px] font-bold text-slate-600"
+                    >
+                      {voiceAutoPlay ? (language === 'it' ? 'Auto on' : 'Auto on') : (language === 'it' ? 'Auto off' : 'Auto off')}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleSpeakExercise}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-[10px] font-bold text-indigo-700 hover:bg-indigo-100 transition-colors"
+                    >
+                      {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                      {isSpeaking
+                        ? (language === 'it' ? 'Stop' : 'Stop')
+                        : (language === 'it' ? 'Voce' : 'Voice')}
+                    </button>
+                  </div>
+                </div>
                 <ol className="space-y-2 text-slate-600 text-sm pl-2">
                   {exercise.steps.map((step, idx) => (
                     <li key={idx} className="flex gap-2.5 items-start">

@@ -2,8 +2,8 @@ export type Language = 'it' | 'en';
 
 export const TRANSLATIONS = {
   it: {
-    appName: "Esercizi Schiena",
-    appSubtitle: "Postura e Prevenzione",
+    appName: "Protezione e Prevenzione",
+    appSubtitle: "Salute della schiena",
     backScore: "BackScore",
     streak: "giorni",
     today: "Oggi",
@@ -92,8 +92,8 @@ export const TRANSLATIONS = {
     adv_prevention_active: "Fantastico! Il tuo stile di vita attivo abbinato alla prevenzione manterrà la tua colonna giovane e sana. Continua con il 'Plank' e il 'Bird-Dog' per preservare la stabilità profonda."
   },
   en: {
-    appName: "Back Exercises",
-    appSubtitle: "Posture & Prevention",
+    appName: "Protection & Prevention",
+    appSubtitle: "Back health",
     backScore: "BackScore",
     streak: "days",
     today: "Today",

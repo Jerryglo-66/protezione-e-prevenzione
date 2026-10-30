@@ -1,17 +1,41 @@
-# il_mio_test
+# Protezione e Prevenzione
 
-A new Flutter project.
+Applicazione dedicata alla salute della schiena, con esercizi, routine, monitoraggio e prevenzione quotidiana.
 
-## Getting Started
+## Obiettivo
 
-This project is a starting point for a Flutter application.
+Raccogliere in un unico progetto tutte le soluzioni legate alla schiena: esercizi, posture, routine di prevenzione e supporto pratico per migliorare il benessere della colonna.
 
-A few resources to get you started if this is your first Flutter project:
+## Tecnologie
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Avvio locale
+
+```bash
+npm install
+npm run dev
+```
+
+La app sarà disponibile su:
+
+- http://localhost:3000
+
+## Build di produzione
+
+```bash
+npm run build
+```
+
+## Struttura
+
+- src/: componenti, dati e logica applicativa
+- public/: asset statici e configurazioni di accesso
+- apps/: progetti legacy o riferimenti correlati alla schiena
+
+## Nota
+
+Questo progetto è pensato per evolvere come app web/mobile per supportare prevenzione, esercizi e monitoraggio della schiena.

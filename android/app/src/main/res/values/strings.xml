@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Protezione e Prevenzione</string>
+    <string name="title_activity_main">Protezione e Prevenzione</string>
+    <string name="package_name">com.protezione.e.prevenzione</string>
+    <string name="custom_url_scheme">com.protezione.e.prevenzione</string>
+</resources>
